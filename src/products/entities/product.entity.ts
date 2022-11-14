@@ -12,5 +12,5 @@ export class Product extends Document {
   readonly price: string;
 
   @ApiProperty({ description: 'The update date of the product' })
-  readonly updateDate: string;
+  readonly updateDate: number;
 }
