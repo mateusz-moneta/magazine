@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateProductDto } from './dto';
+import { CreateProductDto, UpdateProductDto } from './dto';
 import { Product } from './entities';
 import { ProductsService } from './services';
 
@@ -48,5 +48,17 @@ export class ProductsController {
   @ApiParam({ name: 'id' })
   remove(@Param('id') id: string): Promise<Product> {
     return this.productsService.remove(id);
+  }
+
+  @Put(':id')
+  @ApiOperation({ summary: 'Update product' })
+  @ApiResponse({
+    status: 200,
+    description: 'The update record',
+    type: Product
+  })
+  @ApiParam({ name: 'id' })
+  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto): Promise<Product> {
+    return this.productsService.update(id, updateProductDto);
   }
 }

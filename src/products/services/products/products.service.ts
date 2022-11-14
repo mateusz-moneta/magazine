@@ -8,10 +8,7 @@ export class ProductsService {
   constructor(@Inject('PRODUCT_MODEL') private readonly productModel: Model<Product>) {}
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
-    return this.productModel.create({
-      id: '22e',
-      ...createProductDto
-    });
+    return this.productModel.create(createProductDto);
   }
 
   async find(id: string): Promise<Product> {
@@ -24,6 +21,10 @@ export class ProductsService {
 
   async remove(id: string): Promise<Product> {
     return this.productModel.findByIdAndRemove(id).exec();
+  }
+
+  async update(id: string, product: Partial<Product>): Promise<Product> {
+    return this.productModel.findByIdAndUpdate(id, product).exec();
   }
 }
 
